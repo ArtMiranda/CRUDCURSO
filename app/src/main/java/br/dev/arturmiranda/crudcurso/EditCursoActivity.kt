@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import br.dev.arturmiranda.crudcurso.cursoDB.CursoDAO
+import br.dev.arturmiranda.crudcurso.model.Curso
 
 class EditCursoActivity : AppCompatActivity() {
 
@@ -32,6 +33,19 @@ class EditCursoActivity : AppCompatActivity() {
         findViewById<Button>(R.id.excluirButton).setOnClickListener {
             if (cursoCodigo != -1L) {
                 cursoDAO.deleteCursoByCodigo(cursoCodigo)
+                finish()
+            }
+        }
+
+        findViewById<Button>(R.id.editarButton).setOnClickListener {
+            val nome = findViewById<EditText>(R.id.nomeEditText).text.toString()
+            val numeroAlunos = findViewById<EditText>(R.id.numeroAlunosEditText).text.toString().toInt()
+            val notaMEC = findViewById<EditText>(R.id.notaMECEditText).text.toString().toFloat()
+            val area = findViewById<EditText>(R.id.areaEstudosEditText).text.toString()
+
+            if (cursoCodigo != -1L) {
+                val curso = Curso(cursoCodigo, nome, numeroAlunos, notaMEC, area)
+                cursoDAO.updateCurso(curso)
                 finish()
             }
         }
