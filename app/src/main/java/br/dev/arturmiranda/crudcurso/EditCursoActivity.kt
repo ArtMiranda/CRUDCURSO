@@ -2,7 +2,7 @@
 package br.dev.arturmiranda.crudcurso
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import br.dev.arturmiranda.crudcurso.cursoDB.CursoDAO
@@ -21,13 +21,18 @@ class EditCursoActivity : AppCompatActivity() {
 
         if (cursoCodigo != -1L) {
             val curso = cursoDAO.getCursoByCodigo(cursoCodigo)
-            Log.i("Curso", curso.toString())
-            println(curso)
             curso?.let {
                 findViewById<EditText>(R.id.nomeEditText).setText(it.nome)
                 findViewById<EditText>(R.id.numeroAlunosEditText).setText(it.numeroAlunos.toString())
                 findViewById<EditText>(R.id.notaMECEditText).setText(it.notaMEC.toString())
                 findViewById<EditText>(R.id.areaEstudosEditText).setText(it.area)
+            }
+        }
+
+        findViewById<Button>(R.id.excluirButton).setOnClickListener {
+            if (cursoCodigo != -1L) {
+                cursoDAO.deleteCursoByCodigo(cursoCodigo)
+                finish()
             }
         }
     }

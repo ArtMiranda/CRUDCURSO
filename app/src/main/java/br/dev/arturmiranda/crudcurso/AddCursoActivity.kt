@@ -3,6 +3,7 @@ package br.dev.arturmiranda.crudcurso
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -27,19 +28,23 @@ class AddCursoActivity : AppCompatActivity() {
 
         val saveButton = findViewById<MaterialButton>(R.id.saveButton)
         saveButton.setOnClickListener {
-            val codigo = codigoEditText.text.toString().toLong()
+            val codigo = codigoEditText.text.toString()
             val nome = nomeEditText.text.toString()
-            val numeroAlunos = numeroAlunosEditText.text.toString().toInt()
-            val notaMEC = notaMECEditText.text.toString().toFloat()
+            val numeroAlunos = numeroAlunosEditText.text.toString()
+            val notaMEC = notaMECEditText.text.toString()
             val area = areaEditText.text.toString()
 
-            val curso = Curso(codigo, nome, numeroAlunos, notaMEC, area)
-            cursoDAO.insertCurso(curso)
+            if (codigo.isEmpty() || nome.isEmpty() || numeroAlunos.isEmpty() || notaMEC.isEmpty() || area.isEmpty()) {
+                Toast.makeText(this, "Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show()
+            } else {
+                val curso = Curso(codigo.toLong(), nome, numeroAlunos.toInt(), notaMEC.toFloat(), area)
+                cursoDAO.insertCurso(curso)
 
-            val resultIntent = Intent()
-            resultIntent.putExtra("curso", curso)
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
+                val resultIntent = Intent()
+                resultIntent.putExtra("curso", curso)
+                setResult(Activity.RESULT_OK, resultIntent)
+                finish()
+            }
         }
     }
 }

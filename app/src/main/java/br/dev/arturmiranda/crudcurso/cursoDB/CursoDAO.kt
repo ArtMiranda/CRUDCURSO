@@ -67,4 +67,8 @@ class CursoDAO(context: Context) {
             null
         }
     }
+
+    fun deleteCursoByCodigo(codigoCurso: Long): Int {
+        return database.delete(DatabaseHelper.TABLE_CURSOS, "${DatabaseHelper.COLUMN_CODIGO} = ?", arrayOf(codigoCurso.toString()))
+    }
 }
