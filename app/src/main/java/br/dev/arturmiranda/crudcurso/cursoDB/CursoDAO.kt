@@ -68,6 +68,29 @@ class CursoDAO(context: Context) {
         }
     }
 
+    fun getCursoMaiorNumeroAlunos(): Curso {
+        val cursor: Cursor = database.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE_CURSOS} ORDER BY ${DatabaseHelper.COLUMN_NUMERO_ALUNOS} DESC LIMIT 1", null)
+        return if (cursor.moveToNext()) {
+            val codigo = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CODIGO))
+            val nome = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NOME))
+            val numeroAlunos = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NUMERO_ALUNOS))
+            val notaMEC = cursor.getFloat(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_NOTA_MEC))
+            val area = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_AREA))
+            Curso(codigo, nome, numeroAlunos, notaMEC, area)
+        } else {
+            Curso(-1, "", -1, -1f, "")
+        }
+    }
+
+    fun getTotalAlunos(): Int {
+        val cursor: Cursor = database.rawQuery("SELECT SUM(${DatabaseHelper.COLUMN_NUMERO_ALUNOS}) FROM ${DatabaseHelper.TABLE_CURSOS}", null)
+        return if (cursor.moveToNext()) {
+            cursor.getInt(0)
+        } else {
+            0
+        }
+    }
+
     fun deleteCursoByCodigo(codigoCurso: Long): Int {
         return database.delete(DatabaseHelper.TABLE_CURSOS, "${DatabaseHelper.COLUMN_CODIGO} = ?", arrayOf(codigoCurso.toString()))
     }

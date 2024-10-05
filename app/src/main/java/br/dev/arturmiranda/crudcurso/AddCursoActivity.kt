@@ -3,8 +3,10 @@ package br.dev.arturmiranda.crudcurso
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import br.dev.arturmiranda.crudcurso.cursoDB.CursoDAO
@@ -19,6 +21,15 @@ class AddCursoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_curso)
 
         cursoDAO = CursoDAO(this)
+
+        val backButton: Button = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            finish()
+        }
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "Adicionar curso"
 
         val codigoEditText = findViewById<TextInputEditText>(R.id.codigoEditText)
         val nomeEditText = findViewById<TextInputEditText>(R.id.nomeEditText)

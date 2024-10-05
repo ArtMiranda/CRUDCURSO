@@ -1,4 +1,3 @@
-// MainActivity.kt
 package br.dev.arturmiranda.crudcurso
 
 import android.content.Intent
@@ -41,10 +40,21 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val floatingActionButtonData: FloatingActionButton = findViewById(R.id.floatingActionButtonData)
+        floatingActionButtonData.setOnClickListener {
+            val intent = Intent(this, DadosUniversidadeActivity::class.java)
+            startActivity(intent)
+        }
+
+        val floatingActionButtonSearch: FloatingActionButton = findViewById(R.id.floatingActionButtonSearch)
+        floatingActionButtonSearch.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
+
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Cursos Cadastrados"
-
+        supportActionBar?.title = "Cursos cadastrados"
     }
 
     override fun onResume() {
