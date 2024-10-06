@@ -88,7 +88,7 @@ class DadosUniversidadeActivity : AppCompatActivity() {
         }
 
         val fileName = "dados_universidade.txt"
-        val file = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName)
+        val file = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName)
 
         try {
             FileWriter(file).use { writer ->

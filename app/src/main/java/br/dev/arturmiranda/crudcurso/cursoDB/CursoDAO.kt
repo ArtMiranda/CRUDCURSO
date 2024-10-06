@@ -50,10 +50,6 @@ class CursoDAO(context: Context) {
         return database.update(DatabaseHelper.TABLE_CURSOS, values, "${DatabaseHelper.COLUMN_CODIGO} = ?", arrayOf(curso.codigo.toString()))
     }
 
-    fun deleteCurso(codigo: Int): Int {
-        return database.delete(DatabaseHelper.TABLE_CURSOS, "${DatabaseHelper.COLUMN_CODIGO} = ?", arrayOf(codigo.toString()))
-    }
-
     fun getCursoByCodigo(codigoCurso: Long): Curso? {
         val cursor: Cursor = database.query(DatabaseHelper.TABLE_CURSOS, null, "${DatabaseHelper.COLUMN_CODIGO} = ?", arrayOf(codigoCurso.toString()), null, null, null)
         return if (cursor.moveToNext()) {
